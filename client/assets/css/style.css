@@ -10,13 +10,6 @@ body {
   text-align: center;
 }
 
-#server ul {
-  padding-left: 0;
-  margin-block-start: 5px;
-  margin-block-end: 5px;
-  list-style-type: none;
-}
-
 #field {
   margin-left: 60px;
   width: 50%;
@@ -35,6 +28,13 @@ body {
 
 .menu-item h3 {
   margin-block-end: 12px;
+}
+
+.menu-item ul {
+  padding-left: 0;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  list-style-type: none;
 }
 
 .menu-item .controls {
