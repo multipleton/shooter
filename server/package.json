@@ -1,0 +1,10 @@
+{
+  "name": "@multipleton/shooter-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "mocha": "^8.1.3"
+  }
+}
