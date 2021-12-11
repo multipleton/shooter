@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shooter</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+
+  <body>
+    <div id="menu">
+      <div id="login" class="menu-item">
+        <h3>Login</h3>
+        <input id="nickname-input" type="text" placeholder="Nickhame..." />
+        <div class="controls">
+          <button id="login-button">Login</button>
+        </div>
+        <hr />
+      </div>
+      <div id="servers" class="menu-item">
+        <h3>Servers</h3>
+        <select id="servers-select">
+          <option>Select server...</option>
+          <option>Steinmeiner's (2/4)</option>
+          <option>Lightballer's (4/4)</option>
+        </select>
+        <div class="controls">
+          <button id="create-button">Create</button>
+          <button id="connect-button">Connect</button>
+        </div>
+        <hr />
+      </div>
+      <div id="server" class="menu-item">
+        <h3>Steinmeiner's server</h3>
+        <span>Players:</span>
+        <ul>
+          <li>Steinmeiner</li>
+          <li>Lightballer</li>
+        </ul>
+        <div class="controls">
+          <button id="exit-button">Exit</button>
+          <button id="start-button">Start</button>
+        </div>
+        <hr />
+      </div>
+      <div id="round" class="menu-item">
+        <h3>Steinmeiner's server</h3>
+        <div>Steinmeiner (blue)</div>
+        <div>HP: 100/95</div>
+        <div>Weapon: M4A1 - 25/30</div>
+        <div class="controls">
+          <button id="exit-button">Exit</button>
+        </div>
+        <hr />
+      </div>
+    </div>
+    <canvas id="field"></canvas>
+    <div id="log"></div>
+    <script src="./src/connection.js"></script>
+    <script src="./src/renderer.js"></script>
+  </body>
+</html>

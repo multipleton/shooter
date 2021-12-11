@@ -1,0 +1,42 @@
+body {
+  margin: 50px;
+}
+
+#menu {
+  width: 15%;
+  height: 600px;
+  border: 1px solid gray;
+  float: left;
+  text-align: center;
+}
+
+#server ul {
+  padding-left: 0;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  list-style-type: none;
+}
+
+#field {
+  margin-left: 60px;
+  width: 50%;
+  height: 600px;
+  border: 1px solid gray;
+  float: left;
+}
+
+#log {
+  margin-left: 60px;
+  width: 25%;
+  height: 600px;
+  border: 1px solid gray;
+  float: left;
+}
+
+.menu-item h3 {
+  margin-block-end: 12px;
+}
+
+.menu-item .controls {
+  margin-top: 5px;
+}
