@@ -12,13 +12,13 @@ import (
 type HTTPServer struct {
 	Config      HTTPServerConfig
 	Router      *mux.Router
-	Controllers *[]*utils.HTTPController
+	Controllers *[]utils.HTTPController
 	server      *http.Server
 }
 
 func (hs *HTTPServer) Up() {
 	for _, controller := range *hs.Controllers {
-		(*controller).HandleRoutes(hs.Router)
+		controller.HandleRoutes(hs.Router)
 	}
 	log.Printf("starting http server on %s", hs.Config.Address)
 	hs.server = &http.Server{

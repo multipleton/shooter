@@ -1,6 +1,6 @@
 package item
 
 type Item struct {
-	Name        string
-	SpawnChance float32 // percents
+	Name        string  `json:"name"`
+	SpawnChance float32 `json:"spawnChance"` // percents
 }
