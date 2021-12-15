@@ -1,9 +1,10 @@
 package core
 
 type GameEngine struct {
-	State *State
+	state *State
 }
 
 func NewGameEngine() *GameEngine {
-	return &GameEngine{} // TODO: init state
+	state := NewState()
+	return &GameEngine{state: state} // TODO: init state
 }

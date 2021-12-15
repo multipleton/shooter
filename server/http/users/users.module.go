@@ -1,8 +1,8 @@
-package auth
+package users
 
 import "github.com/google/wire"
 
 var Module = wire.NewSet(
-	NewAuthController,
-	NewAuthService,
+	NewUsersService,
+	NewUsersRepository,
 )

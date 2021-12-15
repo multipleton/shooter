@@ -9,6 +9,7 @@ import (
 	"github.com/multipleton/shooter/server/http/auth"
 	"github.com/multipleton/shooter/server/http/models"
 	"github.com/multipleton/shooter/server/http/servers"
+	"github.com/multipleton/shooter/server/http/users"
 	"github.com/multipleton/shooter/server/http/utils"
 	"github.com/multipleton/shooter/server/udp"
 )
@@ -30,12 +31,16 @@ func composeHTTPControllers(
 	}
 }
 
-func Init(httpServerConfig http.HTTPServerConfig, udpServerConfig udp.UDPServerConfig) (*Application, error) {
+func Init(
+	httpServerConfig http.HTTPServerConfig,
+	udpServerConfig udp.UDPServerConfig,
+) (*Application, error) {
 	panic(wire.Build(
 		mux.NewRouter,
+		users.Module,
+		servers.Module,
 		auth.Module,
 		models.Module,
-		servers.Module,
 		composeHTTPControllers,
 		wire.Struct(new(http.HTTPServer), "config", "router", "controllers"),
 		wire.Struct(new(udp.UDPServer), "config"),

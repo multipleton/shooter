@@ -7,7 +7,17 @@ import (
 )
 
 type Round struct {
-	Server     *system.Server
-	Statistics *statistics.RoundStatistics
-	Players    []*player.Player
+	server     *system.Server
+	statistics *statistics.RoundStatistics
+	players    []*player.Player
+}
+
+func NewRound(server *system.Server) *Round {
+	statistics := &statistics.RoundStatistics{}
+	players := []*player.Player{}
+	return &Round{
+		server:     server,
+		statistics: statistics,
+		players:    players,
+	}
 }

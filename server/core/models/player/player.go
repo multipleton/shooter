@@ -9,7 +9,7 @@ import (
 type Player struct {
 	User   *system.User
 	Side   *side.Side
-	HP     HP
-	Armor  Armor
+	HP     uint16
+	Armor  uint16
 	Weapon weapon.Weapon
 }

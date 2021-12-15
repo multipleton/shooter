@@ -12,6 +12,7 @@ import (
 	"github.com/multipleton/shooter/server/http/auth"
 	"github.com/multipleton/shooter/server/http/models"
 	"github.com/multipleton/shooter/server/http/servers"
+	"github.com/multipleton/shooter/server/http/users"
 	"github.com/multipleton/shooter/server/http/utils"
 	"github.com/multipleton/shooter/server/udp"
 )
@@ -20,11 +21,14 @@ import (
 
 func Init(httpServerConfig2 http.HTTPServerConfig, udpServerConfig2 udp.UDPServerConfig) (*Application, error) {
 	router := mux.NewRouter()
-	authService := auth.NewAuthService()
+	usersRepository := users.NewUsersRepository()
+	usersService := users.NewUsersService(usersRepository)
+	authService := auth.NewAuthService(usersService)
 	authController := auth.NewAuthController(authService)
 	modelsService := models.NewModelsService()
 	modelsController := models.NewModelsController(modelsService)
-	serversService := servers.NewServersService()
+	serversRepository := servers.NewServersRepository()
+	serversService := servers.NewServersService(serversRepository, usersService)
 	serversController := servers.NewServersController(serversService)
 	v := composeHTTPControllers(authController, modelsController, serversController)
 	httpServer := &http.HTTPServer{
