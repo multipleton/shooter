@@ -1,11 +1,10 @@
 public class DrawCircle {
 
-    public int x;
-    public int y;
-    public int width = 100;
-    public int height = 100;
-    public int ring_x = -1;
-    public int ring_y = -1;
+    private int x;
+    private int y;
+    private final int SIZE = 100;
+    private int ring_x = -1;
+    private int ring_y = -1;
 
     public DrawCircle(int initX, int initY) {
         x = initX;
@@ -34,7 +33,27 @@ public class DrawCircle {
         else {
             sin = Math.sin(angle);
         }
-        ring_x = (int) Math.round((width / 2) * cos) + x + 50;
-        ring_y = (int) Math.round((width / 2) * sin) + y + 50;
+        ring_x = (int) Math.round((SIZE / 2) * cos) + x + 50;
+        ring_y = (int) Math.round((SIZE / 2) * sin) + y + 50;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public int getSize() {
+        return SIZE;
+    }
+
+    public int getRingX() {
+        return ring_x;
+    }
+
+    public int getRingY() {
+        return ring_y;
     }
 }

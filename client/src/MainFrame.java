@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class MainFrame implements KeyListener, MouseListener, MouseMotionListener {
+
     JFrame f;
     GameField field;
 
@@ -75,12 +76,12 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
     public void keyReleased(KeyEvent e) {
         pressed.removeIf(s -> s.equals(e.getKeyCode()));
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void mouseDragged(MouseEvent e) {}

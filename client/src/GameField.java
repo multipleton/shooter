@@ -30,9 +30,12 @@ public class GameField extends JPanel {
         g2d.drawRect(screenWidth / 4, screenHeight / 10,
                 (int)Math.floor(screenWidth / 1.5), (int)Math.floor(screenHeight / 1.3));
         if (player != null) {
-            g2d.drawOval(player.x, player.y, player.width, player.height);
-            g2d.drawLine(player.x + player.width / 2,
-                    player.y + player.height / 2, player.ring_x, player.ring_y);
+            int size = player.getSize();
+            int x = player.getX();
+            int y = player.getY();
+            g2d.drawOval(x, y, size, size);
+            g2d.drawLine(x + size / 2,
+                    y + size / 2, player.getRingX(), player.getRingY());
         }
     }
 }
