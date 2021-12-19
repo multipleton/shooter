@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class MainFrame implements KeyListener, MouseListener, MouseMotionListener {
     JFrame f;
@@ -9,12 +10,18 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
     int mouseX;
     int mouseY;
 
+    final int SPEED = 10;
+
+    ArrayList<Integer> pressed;
+
     MainFrame() {
         f = new JFrame();
         InitGameBoard();
     }
 
     private void InitGameBoard() {
+        pressed = new ArrayList<Integer>();
+
         f.setSize(1000,1000);
         f.setLayout(null);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -36,14 +43,28 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_D)
-            field.updatePlayer(20, 0, mouseX, mouseY);
-        if (e.getKeyCode() == KeyEvent.VK_A)
-            field.updatePlayer(-20, 0, mouseX, mouseY);
-        if (e.getKeyCode() == KeyEvent.VK_S)
-            field.updatePlayer(0, 20, mouseX, mouseY);
-        if (e.getKeyCode() == KeyEvent.VK_W)
-            field.updatePlayer(0, -20, mouseX, mouseY);
+        int key = e.getKeyCode();
+        int dx = 0;
+        int dy = 0;
+
+        if (key == KeyEvent.VK_D ||
+                key == KeyEvent.VK_A ||
+                key == KeyEvent.VK_S ||
+                key == KeyEvent.VK_W) {
+            pressed.add(key);
+        } else return;
+
+        for (int i = 0; i < pressed.size(); i++) {
+            if (pressed.get(i) == KeyEvent.VK_D)
+                dx = SPEED;
+            else if (pressed.get(i) == KeyEvent.VK_A)
+                dx = -SPEED;
+            else if (pressed.get(i) == KeyEvent.VK_S)
+                dy = SPEED;
+            else if (pressed.get(i) == KeyEvent.VK_W)
+                dy = -SPEED;
+        }
+        field.updatePlayer(dx, dy, mouseX, mouseY);
     }
 
     @Override
@@ -57,7 +78,9 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
     public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        pressed.removeIf(s -> s.equals(e.getKeyCode()));
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {}
