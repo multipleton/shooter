@@ -20,6 +20,8 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
         InitGameBoard();
     }
 
+    Circle enemy1;
+
     private void InitGameBoard() {
         pressed = new ArrayList<Integer>();
 
@@ -36,10 +38,14 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
         f.setSize(screenWidth, screenHeight);
 
         field = new GameField(screenWidth, screenHeight);
-        field.setPlayer(new DrawCircle(screenWidth / 4, screenHeight / 10));
-        f.add(field);
+        field.setPlayer(new Circle(screenWidth / 4, screenHeight / 10));
+        enemy1 = new Circle(screenWidth / 4 + 600, screenHeight / 10);
+        field.addEnemy(enemy1);
 
+        f.add(field);
         f.setVisible(true);
+        Runner runner = new Runner(field);
+        runner.run();
     }
 
     @Override
@@ -66,6 +72,7 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
                 dy = -SPEED;
         }
         field.updatePlayer(dx, dy, mouseX, mouseY);
+        if (enemy1 != null) enemy1.moveCircle(dx, dy, mouseX, mouseY);
     }
 
     @Override
@@ -73,6 +80,7 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
         mouseX = e.getX();
         mouseY = e.getY();
         field.updatePlayer(0, 0, mouseX, mouseY);
+        if (enemy1 != null) enemy1.moveCircle(0, 0, mouseX, mouseY);
     }
 
     @Override

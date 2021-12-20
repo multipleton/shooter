@@ -1,26 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameField extends JPanel {
     int screenWidth;
     int screenHeight;
 
-    DrawCircle player;
+    Circle player;
+
+    ArrayList<Circle> enemies;
 
     GameField(int screenWidth, int screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        enemies = new ArrayList<>();
         setSize(screenWidth, screenHeight);
         setVisible(true);
     }
 
-    public void setPlayer(DrawCircle player) {
+    public void setPlayer(Circle player) {
+        if (this.player != null) return;
         this.player = player;
     }
 
     public void updatePlayer(int new_x, int new_y, int mouseX, int mouseY) {
         this.player.moveCircle(new_x, new_y, mouseX, mouseY);
-        repaint();
+    }
+
+    public void addEnemy(Circle enemy) {
+        this.enemies.add(enemy);
     }
 
     @Override
@@ -36,6 +44,17 @@ public class GameField extends JPanel {
             g2d.drawOval(x, y, size, size);
             g2d.drawLine(x + size / 2,
                     y + size / 2, player.getRingX(), player.getRingY());
+        }
+        if (enemies != null) {
+            for (int i = 0; i < enemies.size(); i++) {
+                if (enemies.get(i) == null) continue;
+                int x = enemies.get(i).getX();
+                int y = enemies.get(i).getY();
+                int size = enemies.get(i).getSize();
+                g2d.drawOval(x, y, size, size);
+                g2d.drawLine(x + size / 2,
+                        y + size / 2, enemies.get(i).getRingX(), enemies.get(i).getRingY());
+            }
         }
     }
 }
