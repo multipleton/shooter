@@ -18,6 +18,7 @@ func (sc *ServersController) HandleRoutes(router *mux.Router) {
 	router.HandleFunc("/servers/users/{userId}/create", sc.Create).Methods("POST")
 	router.HandleFunc("/servers/{serverId}/users/{userId}/join", sc.Join).Methods("POST")
 	router.HandleFunc("/servers/{serverId}/users/{userId}/leave", sc.Leave).Methods("POST")
+	router.HandleFunc("/servers/{serverId}/start", sc.Start).Methods("POST")
 }
 
 func (sc *ServersController) All(w http.ResponseWriter, r *http.Request) {
@@ -73,6 +74,21 @@ func (sc *ServersController) Leave(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	err = sc.serversService.LeaveUserServer(serverId, userId)
+	if err != nil {
+		utils.Respond(w, http.StatusBadRequest, err)
+		return
+	}
+	utils.Respond(w, http.StatusOK, nil)
+}
+
+func (sc *ServersController) Start(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	serverId, err := strconv.Atoi(vars["serverId"])
+	if err != nil {
+		utils.Respond(w, http.StatusBadRequest, fail.InvalidRequestParam("serverId"))
+		return
+	}
+	err = sc.serversService.StartServer(serverId)
 	if err != nil {
 		utils.Respond(w, http.StatusBadRequest, err)
 		return
