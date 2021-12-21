@@ -1,6 +1,8 @@
 package udp
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net"
 )
@@ -38,11 +40,23 @@ func (us *UDPServer) Down() {
 
 func (us *UDPServer) listen() {
 	for {
-		buf := make([]byte, 1024)
-		n, address, err := us.connection.ReadFrom(buf)
+		buffer := make([]byte, 1024)
+		n, _, err := us.connection.ReadFromUDP(buffer)
 		if err != nil {
+			log.Println(err)
 			continue
 		}
-		log.Printf("\ngot %d from %s", n, address) // TODO: remove and add handler
+		var message UDPMessage
+		err = json.Unmarshal(buffer[:n], &message)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		us.handle(message)
 	}
+}
+
+func (us *UDPServer) handle(message UDPMessage) {
+	// TODO: pick handler from engine and send data to it
+	fmt.Println(message)
 }
