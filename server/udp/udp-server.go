@@ -92,12 +92,14 @@ func (us *UDPServer) addClient(addr *net.UDPAddr, jsonObject utils.JSONObject) {
 		return
 	}
 	if us.clients[addr.String()] != nil {
-		log.Printf("client already exists: %s", addr)
+		log.Printf("connection attempt from already connected client: %s", addr)
 		return
 	}
 	us.clients[addr.String()] = &client
+	log.Printf("client connected: %s", addr)
 }
 
 func (us *UDPServer) deleteClient(addr *net.UDPAddr) {
 	delete(us.clients, addr.String())
+	log.Printf("client disconnected: %s", addr)
 }
