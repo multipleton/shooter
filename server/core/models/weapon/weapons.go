@@ -1,0 +1,150 @@
+package weapon
+
+var (
+	KNIFE Weapon = Weapon{
+		Name:           "Knife",
+		Damage:         50,
+		MagazineSize:   0,
+		Ammo:           0,
+		ReloadSpeed:    0,
+		Accuracy:       10,
+		FireRate:       240,
+		FireRange:      1,
+		BulletSpeed:    1,
+		MobilityDebuff: 0,
+	}
+	FIVESEVEN Weapon = Weapon{
+		Name:           "Five-Seven",
+		Damage:         23,
+		MagazineSize:   20,
+		Ammo:           100,
+		ReloadSpeed:    1.4,
+		Accuracy:       6,
+		FireRate:       200,
+		FireRange:      40,
+		BulletSpeed:    4.5,
+		MobilityDebuff: 10,
+	}
+	DEAGLE Weapon = Weapon{
+		Name:           "Desert Eagle",
+		Damage:         48,
+		MagazineSize:   7,
+		Ammo:           28,
+		ReloadSpeed:    2.5,
+		Accuracy:       3,
+		FireRate:       60,
+		FireRange:      75,
+		BulletSpeed:    7,
+		MobilityDebuff: 10,
+	}
+	MP5 Weapon = Weapon{
+		Name:           "MP5",
+		Damage:         24,
+		MagazineSize:   30,
+		Ammo:           120,
+		ReloadSpeed:    1.7,
+		Accuracy:       7,
+		FireRate:       120,
+		FireRange:      45,
+		BulletSpeed:    3.2,
+		MobilityDebuff: 15,
+	}
+	P90 Weapon = Weapon{
+		Name:           "P90",
+		Damage:         27,
+		MagazineSize:   50,
+		Ammo:           120,
+		ReloadSpeed:    2,
+		Accuracy:       4,
+		FireRate:       260,
+		FireRange:      42,
+		BulletSpeed:    3.5,
+		MobilityDebuff: 15,
+	}
+	M4A1 Weapon = Weapon{
+		Name:           "M4A1",
+		Damage:         33,
+		MagazineSize:   30,
+		Ammo:           90,
+		ReloadSpeed:    1.5,
+		Accuracy:       7,
+		FireRate:       180,
+		FireRange:      67,
+		BulletSpeed:    4.5,
+		MobilityDebuff: 25,
+	}
+	AK47 Weapon = Weapon{
+		Name:           "AK-47",
+		Damage:         38,
+		MagazineSize:   30,
+		Ammo:           90,
+		ReloadSpeed:    1.8,
+		Accuracy:       6,
+		FireRate:       200,
+		FireRange:      73,
+		BulletSpeed:    5,
+		MobilityDebuff: 25,
+	}
+	XM1014 Weapon = Weapon{
+		Name:           "XM1014",
+		Damage:         60,
+		MagazineSize:   18,
+		Ammo:           70,
+		ReloadSpeed:    1.8,
+		Accuracy:       5,
+		FireRate:       120,
+		FireRange:      15,
+		BulletSpeed:    3,
+		MobilityDebuff: 30,
+	}
+	VT Weapon = Weapon{
+		Name:           "Vinci Tactical",
+		Damage:         85,
+		MagazineSize:   8,
+		Ammo:           40,
+		ReloadSpeed:    1.5,
+		Accuracy:       9,
+		FireRate:       45,
+		FireRange:      17,
+		BulletSpeed:    4,
+		MobilityDebuff: 30,
+	}
+	M60 Weapon = Weapon{
+		Name:           "M60",
+		Damage:         20,
+		MagazineSize:   120,
+		Ammo:           240,
+		ReloadSpeed:    10,
+		Accuracy:       6,
+		FireRate:       60,
+		FireRange:      70,
+		BulletSpeed:    5.2,
+		MobilityDebuff: 50,
+	}
+	AWP Weapon = Weapon{
+		Name:           "AWP",
+		Damage:         100,
+		MagazineSize:   10,
+		Ammo:           25,
+		ReloadSpeed:    4,
+		Accuracy:       10,
+		FireRate:       30,
+		FireRange:      120,
+		BulletSpeed:    15,
+		MobilityDebuff: 40,
+	}
+)
+
+var Array = []Weapon{
+	KNIFE,
+	FIVESEVEN,
+	DEAGLE,
+	MP5,
+	P90,
+	M4A1,
+	AK47,
+	XM1014,
+	VT,
+	M60,
+	AWP,
+}
