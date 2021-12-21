@@ -5,6 +5,7 @@ const (
 	DISCONNECT UDPMessageType = "disconnect"
 	STATE      UDPMessageType = "state"
 	POSITION   UDPMessageType = "position"
+	BULLET     UDPMessageType = "bullet"
 )
 
 var Array = []UDPMessageType{

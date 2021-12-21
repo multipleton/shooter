@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/multipleton/shooter/server/core/models"
@@ -9,11 +10,11 @@ import (
 	"github.com/multipleton/shooter/server/utils"
 )
 
-type MovementHandler struct {
+type ItemHandler struct {
 	state *models.State
 }
 
-func (mh *MovementHandler) Handle(object interface{}) {
+func (ih *ItemHandler) Handle(object interface{}) {
 	args, casted := object.([]interface{})
 	if !casted {
 		log.Printf("invalid input: %s", object)
@@ -35,13 +36,10 @@ func (mh *MovementHandler) Handle(object interface{}) {
 		log.Printf("invalid player position: %s", object)
 		return
 	}
-	player, err := mh.state.FindPlayerByUserId(id)
-	if err != nil {
-		log.Println(err)
-	}
-	player.Position = position
+	// TODO: check position with items position
+	fmt.Println("item", id, position)
 }
 
-func NewMovementHandler(state *models.State) *MovementHandler {
-	return &MovementHandler{state: state}
+func NewItemHandler(state *models.State) *ItemHandler {
+	return &ItemHandler{state: state}
 }

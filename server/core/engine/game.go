@@ -20,9 +20,15 @@ type Game struct {
 
 func (g *Game) Init() {
 	movementHandler := handlers.NewMovementHandler(g.state)
+	bulletHandler := handlers.NewBulletHandler(g.state)
+	itemHandler := handlers.NewItemHandler(g.state)
 	g.eventEmitter.On(string(event.POSITION), movementHandler)
+	g.eventEmitter.On(string(event.BULLET), bulletHandler)
+	g.eventEmitter.On(string(event.POSITION), itemHandler)
 	g.eventHandlers = []utils.EventHandler{
 		movementHandler,
+		bulletHandler,
+		itemHandler,
 	}
 }
 

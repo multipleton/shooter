@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/multipleton/shooter/server/core/models"
@@ -9,11 +10,11 @@ import (
 	"github.com/multipleton/shooter/server/utils"
 )
 
-type MovementHandler struct {
+type BulletHandler struct {
 	state *models.State
 }
 
-func (mh *MovementHandler) Handle(object interface{}) {
+func (bh *BulletHandler) Handle(object interface{}) {
 	args, casted := object.([]interface{})
 	if !casted {
 		log.Printf("invalid input: %s", object)
@@ -35,13 +36,10 @@ func (mh *MovementHandler) Handle(object interface{}) {
 		log.Printf("invalid player position: %s", object)
 		return
 	}
-	player, err := mh.state.FindPlayerByUserId(id)
-	if err != nil {
-		log.Println(err)
-	}
-	player.Position = position
+	// TODO: run separate goroutine to calculate bullet position and collisions
+	fmt.Println("bullet", id, position)
 }
 
-func NewMovementHandler(state *models.State) *MovementHandler {
-	return &MovementHandler{state: state}
+func NewBulletHandler(state *models.State) *BulletHandler {
+	return &BulletHandler{state: state}
 }
