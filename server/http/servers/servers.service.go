@@ -1,14 +1,14 @@
 package servers
 
 import (
-	"fmt"
-
+	"github.com/multipleton/shooter/server/core/engine"
 	"github.com/multipleton/shooter/server/http/users"
 )
 
 type ServersService struct {
 	serversRepository *ServersRepository
 	usersService      *users.UsersService
+	manager           *engine.Manager
 }
 
 func (ss *ServersService) All() []*ServersEntity {
@@ -55,13 +55,12 @@ func (ss *ServersService) LeaveUserServer(serverId, userId int) error {
 }
 
 func (ss *ServersService) StartServer(serverId int) error {
-	// TODO: push server to game engine
 	server, err := ss.serversRepository.FindById(serverId)
 	if err != nil {
 		return err
 	}
-	fmt.Println(server)
-	return nil
+	ss.manager.CreateNewGame(server.ToServer())
+	return nil // TODO: add error handling on CreateNewGame
 }
 
 func NewServersService(

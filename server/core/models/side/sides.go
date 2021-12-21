@@ -6,3 +6,10 @@ const (
 	BLUE   Side = "blue"
 	YELLOW Side = "yellow"
 )
+
+var Array = []Side{
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW,
+}

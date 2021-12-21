@@ -22,3 +22,11 @@ var (
 		SpawnChance: 1,
 	}
 )
+
+var Array = []Item{
+	HP,
+	ARMOR,
+	DAMAGE,
+	SPEED,
+	CAKE,
+}

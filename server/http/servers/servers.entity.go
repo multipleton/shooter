@@ -3,6 +3,7 @@ package servers
 import (
 	"fmt"
 
+	"github.com/multipleton/shooter/server/core/models/system"
 	"github.com/multipleton/shooter/server/http/users"
 )
 
@@ -22,6 +23,18 @@ func (se *ServersEntity) RemoveUser(user users.UsersEntity) {
 			se.Users = append(se.Users[:i], se.Users[i+1:]...)
 			return
 		}
+	}
+}
+
+func (se *ServersEntity) ToServer() *system.Server {
+	var users []*system.User
+	for _, user := range se.Users {
+		users = append(users, user.ToUser())
+	}
+	return &system.Server{
+		Id:    se.Id,
+		Title: se.Title,
+		Users: users,
 	}
 }
 

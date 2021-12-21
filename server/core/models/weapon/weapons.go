@@ -134,3 +134,17 @@ var (
 		MobilityDebuff: 40,
 	}
 )
+
+var Array = []Weapon{
+	KNIFE,
+	FIVESEVEN,
+	DEAGLE,
+	MP5,
+	P90,
+	M4A1,
+	AK47,
+	XM1014,
+	VT,
+	M60,
+	AWP,
+}

@@ -13,3 +13,16 @@ type Player struct {
 	Armor  uint16
 	Weapon weapon.Weapon
 }
+
+func NewPlayer(
+	user *system.User,
+	side *side.Side,
+) *Player {
+	return &Player{
+		User:   user,
+		Side:   side,
+		HP:     100,
+		Armor:  0,
+		Weapon: weapon.KNIFE,
+	}
+}
