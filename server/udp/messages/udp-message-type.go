@@ -1,3 +1,3 @@
-package udp
+package messages
 
 type UDPMessageType string

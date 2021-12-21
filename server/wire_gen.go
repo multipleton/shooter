@@ -14,8 +14,9 @@ import (
 	"github.com/multipleton/shooter/server/http/models"
 	"github.com/multipleton/shooter/server/http/servers"
 	"github.com/multipleton/shooter/server/http/users"
-	"github.com/multipleton/shooter/server/http/utils"
+	utils2 "github.com/multipleton/shooter/server/http/utils"
 	"github.com/multipleton/shooter/server/udp"
+	"github.com/multipleton/shooter/server/utils"
 )
 
 // Injectors from application.go:
@@ -38,8 +39,10 @@ func Init(httpServerConfig2 http.HTTPServerConfig, udpServerConfig2 udp.UDPServe
 		Router:      router,
 		Controllers: v,
 	}
+	eventEmitter := utils.NewEventEmitter()
 	udpServer := &udp.UDPServer{
-		Config: udpServerConfig2,
+		Config:       udpServerConfig2,
+		EventEmitter: eventEmitter,
 	}
 	application := &Application{
 		HTTPServer: httpServer,
@@ -59,8 +62,8 @@ func composeHTTPControllers(
 	authController *auth.AuthController,
 	modelsController *models.ModelsController,
 	serversController *servers.ServersController,
-) *[]utils.HTTPController {
-	return &[]utils.HTTPController{
+) *[]utils2.HTTPController {
+	return &[]utils2.HTTPController{
 		authController,
 		modelsController,
 		serversController,

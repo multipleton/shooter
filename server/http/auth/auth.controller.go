@@ -2,7 +2,6 @@ package auth
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -40,7 +39,6 @@ func (ac *AuthController) Logout(w http.ResponseWriter, r *http.Request) {
 		utils.Respond(w, http.StatusBadRequest, fail.InvalidRequestBody())
 	}
 	err = ac.authService.Logout(dto)
-	fmt.Println(err)
 	if err != nil {
 		utils.Respond(w, http.StatusBadRequest, err)
 		return

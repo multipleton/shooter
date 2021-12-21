@@ -11,8 +11,9 @@ import (
 	"github.com/multipleton/shooter/server/http/models"
 	"github.com/multipleton/shooter/server/http/servers"
 	"github.com/multipleton/shooter/server/http/users"
-	"github.com/multipleton/shooter/server/http/utils"
+	httpUtils "github.com/multipleton/shooter/server/http/utils"
 	"github.com/multipleton/shooter/server/udp"
+	"github.com/multipleton/shooter/server/utils"
 )
 
 type Application struct {
@@ -24,8 +25,8 @@ func composeHTTPControllers(
 	authController *auth.AuthController,
 	modelsController *models.ModelsController,
 	serversController *servers.ServersController,
-) *[]utils.HTTPController {
-	return &[]utils.HTTPController{
+) *[]httpUtils.HTTPController {
+	return &[]httpUtils.HTTPController{
 		authController,
 		modelsController,
 		serversController,
@@ -38,6 +39,7 @@ func Init(
 ) (*Application, error) {
 	panic(wire.Build(
 		mux.NewRouter,
+		utils.NewEventEmitter,
 		engine.NewManager,
 		users.Module,
 		servers.Module,
@@ -45,7 +47,7 @@ func Init(
 		models.Module,
 		composeHTTPControllers,
 		wire.Struct(new(http.HTTPServer), "config", "router", "controllers"),
-		wire.Struct(new(udp.UDPServer), "config"),
+		wire.Struct(new(udp.UDPServer), "config", "eventEmitter"),
 		wire.Struct(new(Application), "HTTPServer", "UDPServer"),
 	))
 }
