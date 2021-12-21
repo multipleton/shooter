@@ -6,8 +6,8 @@ import (
 )
 
 type State struct {
-	statistics *statistics.GameStatistics
-	players    []*player.Player
+	Statistics *statistics.GameStatistics `json:"statistics"`
+	Players    []*player.Player           `json:"players"`
 }
 
 func (s *State) Update() {
@@ -17,7 +17,7 @@ func (s *State) Update() {
 func NewState(players []*player.Player) *State {
 	statistics := &statistics.GameStatistics{}
 	return &State{
-		statistics: statistics,
-		players:    players,
+		Statistics: statistics,
+		Players:    players,
 	}
 }
