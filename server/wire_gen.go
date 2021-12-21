@@ -30,7 +30,8 @@ func Init(httpServerConfig2 http.HTTPServerConfig, udpServerConfig2 udp.UDPServe
 	modelsService := models.NewModelsService()
 	modelsController := models.NewModelsController(modelsService)
 	serversRepository := servers.NewServersRepository()
-	manager := engine.NewManager()
+	eventEmitter := utils.NewEventEmitter()
+	manager := engine.NewManager(eventEmitter)
 	serversService := servers.NewServersService(serversRepository, usersService, manager)
 	serversController := servers.NewServersController(serversService)
 	v := composeHTTPControllers(authController, modelsController, serversController)
@@ -39,7 +40,6 @@ func Init(httpServerConfig2 http.HTTPServerConfig, udpServerConfig2 udp.UDPServe
 		Router:      router,
 		Controllers: v,
 	}
-	eventEmitter := utils.NewEventEmitter()
 	udpServer := &udp.UDPServer{
 		Config:       udpServerConfig2,
 		EventEmitter: eventEmitter,

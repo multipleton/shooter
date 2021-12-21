@@ -4,16 +4,19 @@ import (
 	"encoding/json"
 	"log"
 	"net"
+	"strconv"
+	"strings"
 
 	"github.com/multipleton/shooter/server/udp/messages"
 	"github.com/multipleton/shooter/server/utils"
 )
 
 type UDPServer struct {
-	Config       UDPServerConfig
-	connection   *net.UDPConn
-	clients      map[string]*UDPClient
-	EventEmitter *utils.EventEmitter
+	Config        UDPServerConfig
+	connection    *net.UDPConn
+	clients       map[string]*UDPClient
+	EventEmitter  *utils.EventEmitter
+	resultHandler *UDPResultHanlder
 }
 
 func (us *UDPServer) Up() {
@@ -28,6 +31,8 @@ func (us *UDPServer) Up() {
 	}
 	us.connection = connection
 	us.clients = make(map[string]*UDPClient)
+	us.resultHandler = NewUDPResultHandler(us.send)
+	us.EventEmitter.On(string(messages.STATE), us.resultHandler)
 	us.listen()
 }
 
@@ -58,6 +63,32 @@ func (us *UDPServer) listen() {
 			continue
 		}
 		us.handle(addr, message)
+	}
+}
+
+func (us *UDPServer) send(object interface{}) {
+	data, err := json.Marshal(object)
+	if err != nil {
+		log.Printf("cannot convert object to JSON: %s", object)
+	}
+	for addrString := range us.clients {
+		splittedAddr := strings.Split(addrString, ":")
+		ip := net.ParseIP(splittedAddr[0])
+		port, err := strconv.Atoi(splittedAddr[1])
+		if err != nil {
+			log.Printf("cannot resolve port of %s", addrString)
+			continue
+		}
+		addr := net.UDPAddr{
+			IP:   ip,
+			Port: port,
+		}
+		_, err = us.connection.WriteToUDP(data, &addr)
+		if err != nil {
+			log.Printf("cannot send message to %s", addrString)
+			log.Println(err)
+			continue
+		}
 	}
 }
 

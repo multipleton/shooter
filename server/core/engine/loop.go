@@ -1,6 +1,8 @@
 package engine
 
-import "time"
+import (
+	"time"
+)
 
 type Loop struct {
 	TickRate uint16
@@ -8,14 +10,14 @@ type Loop struct {
 	quit     chan struct{}
 }
 
-func (gl *Loop) Start(state *State) {
+func (gl *Loop) Start(callback func()) {
 	gl.ticker = time.NewTicker(time.Second / time.Duration(gl.TickRate))
 	gl.quit = make(chan struct{})
 	go func() {
 		for {
 			select {
 			case <-gl.ticker.C:
-				state.Update()
+				callback()
 			case <-gl.quit:
 				gl.ticker.Stop()
 				return
