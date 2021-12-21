@@ -1,12 +1,17 @@
+import org.json.simple.parser.ParseException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class MainFrame implements KeyListener, MouseListener, MouseMotionListener {
 
     JFrame f;
     GameField field;
+    Runner runner;
 
     int mouseX;
     int mouseY;
@@ -15,17 +20,15 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
 
     ArrayList<Integer> pressed;
 
-    MainFrame() {
+    MainFrame(Circle player, Circle[] enemies, Bullet[] bullets) throws InterruptedException, IOException, ParseException, URISyntaxException {
         f = new JFrame();
-        InitGameBoard();
+        Lobby lobby = new Lobby(f);
+        InitGameBoard(player, enemies, bullets);
     }
 
-    Circle enemy1;
-
-    private void InitGameBoard() {
+    private void InitGameBoard(Circle player, Circle[] enemies, Bullet[] bullets) {
         pressed = new ArrayList<Integer>();
 
-        f.setSize(1000,1000);
         f.setLayout(null);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.addMouseMotionListener(this);
@@ -38,13 +41,18 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
         f.setSize(screenWidth, screenHeight);
 
         field = new GameField(screenWidth, screenHeight);
-        field.setPlayer(new Circle(screenWidth / 4, screenHeight / 10));
-        enemy1 = new Circle(screenWidth / 4 + 600, screenHeight / 10);
-        field.addEnemy(enemy1);
+        field.setPlayer(player);
+        if (enemies != null) {
+            for (int i = 0; i < enemies.length; i++) {
+                field.addEnemy(enemies[i]);
+            }
+        }
+
+//        field.addBullets(bullets);
 
         f.add(field);
         f.setVisible(true);
-        Runner runner = new Runner(field);
+        runner = new Runner(field);
         runner.run();
     }
 
@@ -72,7 +80,6 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
                 dy = -SPEED;
         }
         field.updatePlayer(dx, dy, mouseX, mouseY);
-        if (enemy1 != null) enemy1.moveCircle(dx, dy, mouseX, mouseY);
     }
 
     @Override
@@ -80,7 +87,6 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
         mouseX = e.getX();
         mouseY = e.getY();
         field.updatePlayer(0, 0, mouseX, mouseY);
-        if (enemy1 != null) enemy1.moveCircle(0, 0, mouseX, mouseY);
     }
 
     @Override
@@ -95,7 +101,9 @@ public class MainFrame implements KeyListener, MouseListener, MouseMotionListene
     public void mouseDragged(MouseEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+//        new Bullet();
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {}

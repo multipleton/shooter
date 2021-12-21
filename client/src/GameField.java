@@ -10,6 +10,8 @@ public class GameField extends JPanel {
 
     ArrayList<Circle> enemies;
 
+    Bullet[] bullets;
+
     GameField(int screenWidth, int screenHeight) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -29,6 +31,10 @@ public class GameField extends JPanel {
 
     public void addEnemy(Circle enemy) {
         this.enemies.add(enemy);
+    }
+
+    public void addBullets(Bullet[] bullets) {
+        this.bullets = bullets;
     }
 
     @Override
@@ -54,6 +60,12 @@ public class GameField extends JPanel {
                 g2d.drawOval(x, y, size, size);
                 g2d.drawLine(x + size / 2,
                         y + size / 2, enemies.get(i).getRingX(), enemies.get(i).getRingY());
+            }
+        }
+        if (bullets != null) {
+            for (int i = 0; i < bullets.length; i++) {
+                if (bullets[i] == null) continue;
+                g2d.drawLine(bullets[i].x1, bullets[i].y1, bullets[i].x2, bullets[i].y2);
             }
         }
     }
