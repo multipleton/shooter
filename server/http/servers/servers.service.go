@@ -66,9 +66,11 @@ func (ss *ServersService) StartServer(serverId int) error {
 func NewServersService(
 	serversRepository *ServersRepository,
 	usersService *users.UsersService,
+	manager *engine.Manager,
 ) *ServersService {
 	return &ServersService{
 		serversRepository: serversRepository,
 		usersService:      usersService,
+		manager:           manager,
 	}
 }

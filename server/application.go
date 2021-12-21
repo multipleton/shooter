@@ -5,6 +5,7 @@ package main
 import (
 	"github.com/google/wire"
 	"github.com/gorilla/mux"
+	"github.com/multipleton/shooter/server/core/engine"
 	"github.com/multipleton/shooter/server/http"
 	"github.com/multipleton/shooter/server/http/auth"
 	"github.com/multipleton/shooter/server/http/models"
@@ -37,6 +38,7 @@ func Init(
 ) (*Application, error) {
 	panic(wire.Build(
 		mux.NewRouter,
+		engine.NewManager,
 		users.Module,
 		servers.Module,
 		auth.Module,

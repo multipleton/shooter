@@ -8,6 +8,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/multipleton/shooter/server/core/engine"
 	"github.com/multipleton/shooter/server/http"
 	"github.com/multipleton/shooter/server/http/auth"
 	"github.com/multipleton/shooter/server/http/models"
@@ -28,7 +29,8 @@ func Init(httpServerConfig2 http.HTTPServerConfig, udpServerConfig2 udp.UDPServe
 	modelsService := models.NewModelsService()
 	modelsController := models.NewModelsController(modelsService)
 	serversRepository := servers.NewServersRepository()
-	serversService := servers.NewServersService(serversRepository, usersService)
+	manager := engine.NewManager()
+	serversService := servers.NewServersService(serversRepository, usersService, manager)
 	serversController := servers.NewServersController(serversService)
 	v := composeHTTPControllers(authController, modelsController, serversController)
 	httpServer := &http.HTTPServer{
