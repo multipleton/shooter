@@ -1,6 +1,9 @@
-package engine
+package models
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/multipleton/shooter/server/core/handlers/statistics"
 	"github.com/multipleton/shooter/server/core/models/player"
 )
@@ -10,8 +13,14 @@ type State struct {
 	Players    []*player.Player           `json:"players"`
 }
 
-func (s *State) Update() {
-	// TODO: call update in udp
+func (s *State) FindPlayerByUserId(id int) (*player.Player, error) {
+	for _, player := range s.Players {
+		if player.User.Id == id {
+			return player, nil
+		}
+	}
+	message := fmt.Sprintf("player with id=%d doesn't exists", id)
+	return nil, errors.New(message)
 }
 
 func NewState(players []*player.Player) *State {

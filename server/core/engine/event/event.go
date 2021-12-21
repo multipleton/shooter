@@ -1,3 +1,3 @@
-package engine
+package event
 
 type Event string

@@ -1,15 +1,15 @@
 package udp
 
-type UDPResultHanlder struct {
+type UDPResultHandler struct {
 	callback func(interface{})
 }
 
-func (udprh *UDPResultHanlder) Handle(object interface{}) {
+func (udprh *UDPResultHandler) Handle(object interface{}) {
 	udprh.callback(object)
 }
 
-func NewUDPResultHandler(callback func(interface{})) *UDPResultHanlder {
-	return &UDPResultHanlder{
+func NewUDPResultHandler(callback func(interface{})) *UDPResultHandler {
+	return &UDPResultHandler{
 		callback: callback,
 	}
 }

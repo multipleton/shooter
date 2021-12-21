@@ -16,7 +16,7 @@ type UDPServer struct {
 	connection    *net.UDPConn
 	clients       map[string]*UDPClient
 	EventEmitter  *utils.EventEmitter
-	resultHandler *UDPResultHanlder
+	resultHandler *UDPResultHandler
 }
 
 func (us *UDPServer) Up() {
@@ -110,7 +110,11 @@ func (us *UDPServer) handle(addr *net.UDPAddr, message messages.UDPMessage) {
 	case messages.DISCONNECT:
 		us.deleteClient(addr)
 	default:
-		us.EventEmitter.Emit(string(message.MessageType), message.Data)
+		data := []interface{}{
+			us.clients[addr.String()].Id,
+			message.Data,
+		}
+		us.EventEmitter.Emit(string(message.MessageType), data)
 	}
 }
 
